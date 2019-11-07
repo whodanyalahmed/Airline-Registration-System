@@ -1,2 +1,0 @@
-0 , dan , gh , Economy , karachi , madrid , 10000 0 , soul , set , Business , karachi , madrid , 90000 
-0 , rohit , motilal , Standard , karachi , barcelona , 80000 
