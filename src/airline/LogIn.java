@@ -6,7 +6,6 @@
  * and open the template in the editor.
  */
 package airline;
-import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileNotFoundException;
 import javax.swing.JOptionPane;
@@ -21,10 +20,11 @@ import javax.swing.ImageIcon;
  * @author Daniyal
  */
 public class LogIn extends javax.swing.JFrame {
-
+private int xint,yint;
      String name,email,password;
      
     File Fe = new File("users.txt");
+    private ImageIcon redcor;
             
     
          void CheckData(String emai, String pass){
@@ -34,14 +34,19 @@ public class LogIn extends javax.swing.JFrame {
             if(Fe.exists()){
             Rd = new RandomAccessFile("users.txt","rw");
             String line = Rd.readLine();
+            try{
             email = line.substring(7);
             password = Rd.readLine().substring(10);
-
+            }
+            
+            catch (NullPointerException e){
+                System.out.println("File is empty.");
+                JOptionPane.showMessageDialog(null, "File is empty..Please signup or delete the file.");
+            }
             
             
             if(emai.equals(email) && pass.equals(password)){
                 System.out.println("Password matched");
-                
                 main o = new main();
                 dispose();
                 o.setVisible(true);
@@ -79,7 +84,7 @@ public class LogIn extends javax.swing.JFrame {
     }
     public void sIc(){
         ImageIcon img;
-         img = new ImageIcon("D:\\assignments\\Airline\\src\\airline\\favicon2-02-02.png");
+        img = new ImageIcon("D:\\assignments\\Airline\\src\\airline\\favicon2-02-02.png");
         this.setIconImage(img.getImage());
     }
 
@@ -101,9 +106,17 @@ public class LogIn extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jLabel2 = new javax.swing.JLabel();
+        btn_close = new javax.swing.JLabel();
+        btn_min = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImages(null);
+        setUndecorated(true);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
         jLabel3.setLabelFor(in_email);
@@ -141,6 +154,16 @@ public class LogIn extends javax.swing.JFrame {
         wrong_ep.setText("* Wrong password or email.");
 
         jPanel1.setBackground(new java.awt.Color(84, 124, 188));
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel1MouseDragged(evt);
+            }
+        });
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel1MousePressed(evt);
+            }
+        });
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Montserrat ExtraBold", 0, 24)); // NOI18N
@@ -166,6 +189,32 @@ public class LogIn extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 51, 51));
         jLabel2.setText("Please! log in");
 
+        btn_close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airline/img/cross.png"))); // NOI18N
+        btn_close.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_closeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_closeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_closeMouseExited(evt);
+            }
+        });
+
+        btn_min.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airline/img/min.png"))); // NOI18N
+        btn_min.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_minMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_minMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_minMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -180,7 +229,11 @@ public class LogIn extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                        .addGap(24, 24, 24)
+                        .addComponent(btn_min)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_close)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(133, 133, 133)
@@ -196,8 +249,18 @@ public class LogIn extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(540, 540, 540))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btn_close)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btn_min, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(264, 264, 264)
                 .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(222, 222, 222))
@@ -266,6 +329,7 @@ public class LogIn extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
     private void log_inActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_log_inActionPerformed
@@ -281,6 +345,52 @@ public class LogIn extends javax.swing.JFrame {
         SignUp b = new SignUp();
         b.setVisible(true);
     }//GEN-LAST:event_sign_upActionPerformed
+
+    private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        
+        this.setLocation(x-xint, y-yint);
+    }//GEN-LAST:event_jPanel1MouseDragged
+
+    private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+        xint = evt.getX();
+        yint = evt.getY();
+    }//GEN-LAST:event_jPanel1MousePressed
+
+    private void btn_closeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseEntered
+    redcor = new ImageIcon(getClass().getResource("img//redcross.png"));
+    btn_close.setIcon(redcor); 
+    }//GEN-LAST:event_btn_closeMouseEntered
+
+    private void btn_closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseClicked
+    System.exit(0);        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_closeMouseClicked
+
+    private void btn_closeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseExited
+    redcor = new ImageIcon(getClass().getResource("img//cross.png"));
+    btn_close.setIcon(redcor); 
+    }//GEN-LAST:event_btn_closeMouseExited
+
+    private void btn_minMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_minMouseEntered
+    redcor = new ImageIcon(getClass().getResource("img//min1.png"));
+    btn_min.setIcon(redcor); 
+    }//GEN-LAST:event_btn_minMouseEntered
+
+    private void btn_minMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_minMouseExited
+    redcor = new ImageIcon(getClass().getResource("img//min.png"));
+    btn_min.setIcon(redcor); 
+    }//GEN-LAST:event_btn_minMouseExited
+
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+    
+    }//GEN-LAST:event_formMouseEntered
+
+    private void btn_minMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_minMouseClicked
+//        frame.setState(Frame.ICONIFIED);
+    this.setExtendedState(this.ICONIFIED);
+
+    }//GEN-LAST:event_btn_minMouseClicked
 
     /**
      * @param args the command line arguments
@@ -319,6 +429,8 @@ public class LogIn extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btn_close;
+    private javax.swing.JLabel btn_min;
     private javax.swing.JTextField in_email;
     private javax.swing.JPasswordField in_pass;
     private javax.swing.JDesktopPane jDesktopPane1;

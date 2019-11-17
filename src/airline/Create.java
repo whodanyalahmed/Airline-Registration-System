@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,6 +18,8 @@ import javax.swing.JOptionPane;
  */
 public class Create extends javax.swing.JFrame {
     String name,fatherName,fclass,ffrom,to,price;
+    int xint,yint;
+    private ImageIcon redcor;
     /**
      * Creates new form Create
      */
@@ -37,6 +40,8 @@ public class Create extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        btn_min = new javax.swing.JLabel();
+        btn_close = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         in_cname = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -54,8 +59,20 @@ public class Create extends javax.swing.JFrame {
         empty = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(84, 124, 188));
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel1MouseDragged(evt);
+            }
+        });
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel1MousePressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Montserrat Medium", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -69,6 +86,36 @@ public class Create extends javax.swing.JFrame {
             }
         });
 
+        btn_min.setFont(new java.awt.Font("Montserrat ExtraBold", 0, 24)); // NOI18N
+        btn_min.setForeground(new java.awt.Color(255, 255, 255));
+        btn_min.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airline/img/min.png"))); // NOI18N
+        btn_min.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_minMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_minMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_minMouseExited(evt);
+            }
+        });
+
+        btn_close.setFont(new java.awt.Font("Montserrat ExtraBold", 0, 24)); // NOI18N
+        btn_close.setForeground(new java.awt.Color(255, 255, 255));
+        btn_close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airline/img/cross.png"))); // NOI18N
+        btn_close.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_closeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_closeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_closeMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -77,15 +124,28 @@ public class Create extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addGap(128, 128, 128)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_min)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_close)
+                .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton1))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jButton1)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(btn_min, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btn_close))))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -205,6 +265,7 @@ public class Create extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -300,6 +361,46 @@ public class Create extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_createActionPerformed
 
+    private void btn_minMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_minMouseClicked
+        this.setExtendedState(this.ICONIFIED);
+    }//GEN-LAST:event_btn_minMouseClicked
+
+    private void btn_minMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_minMouseEntered
+        redcor = new ImageIcon(getClass().getResource("img//min1.png"));
+        btn_min.setIcon(redcor);         // TODO add your handling code here:
+    }//GEN-LAST:event_btn_minMouseEntered
+
+    private void btn_minMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_minMouseExited
+        redcor = new ImageIcon(getClass().getResource("img//min.png"));
+        btn_min.setIcon(redcor);
+    }//GEN-LAST:event_btn_minMouseExited
+
+    private void btn_closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_btn_closeMouseClicked
+
+    private void btn_closeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseEntered
+        redcor = new ImageIcon(getClass().getResource("img//redcross.png"));
+        btn_close.setIcon(redcor);
+    }//GEN-LAST:event_btn_closeMouseEntered
+
+    private void btn_closeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseExited
+        redcor = new ImageIcon(getClass().getResource("img//cross.png"));
+        btn_close.setIcon(redcor);
+    }//GEN-LAST:event_btn_closeMouseExited
+
+    private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        
+        this.setLocation(x-xint, y-yint);
+    }//GEN-LAST:event_jPanel1MouseDragged
+
+    private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+        xint = evt.getX();
+        yint = evt.getY();
+    }//GEN-LAST:event_jPanel1MousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -336,7 +437,9 @@ public class Create extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btn_close;
     private javax.swing.JButton btn_create;
+    private javax.swing.JLabel btn_min;
     private javax.swing.JComboBox<String> cclass;
     private javax.swing.JLabel empty;
     private javax.swing.JTextField in_cfrom;

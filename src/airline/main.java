@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -21,7 +22,9 @@ import javax.swing.SwingConstants;
  * @author Daniyal
  */
 public class main extends javax.swing.JFrame {
+    int xint,yint;
     String user,email,password,contacts;
+    private ImageIcon redcor;
     /**
      * Creates new form main
      */
@@ -69,7 +72,8 @@ public class main extends javax.swing.JFrame {
         user_name = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
-        Update_flight = new javax.swing.JButton();
+        btn_min = new javax.swing.JLabel();
+        btn_close = new javax.swing.JLabel();
         Create_flight = new javax.swing.JButton();
         View_Flights = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -79,13 +83,23 @@ public class main extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(84, 124, 188));
         jPanel1.setForeground(java.awt.Color.darkGray);
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel1MouseDragged(evt);
+            }
+        });
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel1MousePressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Montserrat Medium", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -109,6 +123,36 @@ public class main extends javax.swing.JFrame {
             }
         });
 
+        btn_min.setFont(new java.awt.Font("Montserrat ExtraBold", 0, 24)); // NOI18N
+        btn_min.setForeground(new java.awt.Color(255, 255, 255));
+        btn_min.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airline/img/min.png"))); // NOI18N
+        btn_min.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_minMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_minMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_minMouseExited(evt);
+            }
+        });
+
+        btn_close.setFont(new java.awt.Font("Montserrat ExtraBold", 0, 24)); // NOI18N
+        btn_close.setForeground(new java.awt.Color(255, 255, 255));
+        btn_close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airline/img/cross.png"))); // NOI18N
+        btn_close.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_closeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_closeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_closeMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -116,33 +160,41 @@ public class main extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(user_name)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(user_name)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_min)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_close))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(user_name)
-                    .addComponent(jLabel2)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(user_name)
+                            .addComponent(jLabel2))
+                        .addGap(25, 25, 25))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(btn_min, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btn_close))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
-
-        Update_flight.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
-        Update_flight.setIcon(new javax.swing.ImageIcon("D:\\PPT\\OOP\\update-02.png")); // NOI18N
-        Update_flight.setText("Update flights");
-        Update_flight.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Update_flightActionPerformed(evt);
-            }
-        });
 
         Create_flight.setFont(new java.awt.Font("Montserrat SemiBold", 0, 14)); // NOI18N
         Create_flight.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airline/add-02-02-02.png"))); // NOI18N
@@ -161,6 +213,9 @@ public class main extends javax.swing.JFrame {
                 View_FlightsActionPerformed(evt);
             }
         });
+
+        jMenuBar1.setBackground(new java.awt.Color(84, 124, 188));
+        jMenuBar1.setForeground(new java.awt.Color(255, 255, 255));
 
         jMenu1.setText("File");
 
@@ -182,9 +237,10 @@ public class main extends javax.swing.JFrame {
         jMenu2.setText("Flights");
 
         jMenuItem5.setText("Create");
+        jMenuItem5.setPreferredSize(new java.awt.Dimension(100, 22));
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                Create_flightActionPerformed(evt);
             }
         });
         jMenu2.add(jMenuItem5);
@@ -192,26 +248,10 @@ public class main extends javax.swing.JFrame {
         jMenuItem3.setText("View");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                View_FlightsActionPerformed(evt);
             }
         });
         jMenu2.add(jMenuItem3);
-
-        jMenuItem4.setText("Update");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem4);
-
-        jMenuItem6.setText("Delete");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem6);
 
         jMenuBar1.add(jMenu2);
 
@@ -223,13 +263,11 @@ public class main extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(118, 118, 118)
                 .addComponent(Create_flight)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(Update_flight)
-                .addGap(50, 50, 50)
+                .addGap(109, 109, 109)
                 .addComponent(View_Flights)
-                .addGap(61, 61, 61))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,34 +275,18 @@ public class main extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Update_flight, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Create_flight, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(View_Flights, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
-
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
       JPanel panel = new JPanel();
@@ -299,17 +321,51 @@ public class main extends javax.swing.JFrame {
         cre.setVisible(true);
     }//GEN-LAST:event_Create_flightActionPerformed
 
-    private void Update_flightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Update_flightActionPerformed
-        dispose();
-        Update upd = new Update();
-        upd.setVisible(true);
-    }//GEN-LAST:event_Update_flightActionPerformed
-
     private void View_FlightsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_View_FlightsActionPerformed
         dispose();
         View vie = new View();
         vie.setVisible(true);
     }//GEN-LAST:event_View_FlightsActionPerformed
+
+    private void btn_closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_btn_closeMouseClicked
+
+    private void btn_closeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseEntered
+        redcor = new ImageIcon(getClass().getResource("img//redcross.png"));
+        btn_close.setIcon(redcor);
+    }//GEN-LAST:event_btn_closeMouseEntered
+
+    private void btn_closeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseExited
+        redcor = new ImageIcon(getClass().getResource("img//cross.png"));
+        btn_close.setIcon(redcor);
+    }//GEN-LAST:event_btn_closeMouseExited
+
+    private void btn_minMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_minMouseClicked
+        this.setExtendedState(this.ICONIFIED);
+    }//GEN-LAST:event_btn_minMouseClicked
+
+    private void btn_minMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_minMouseEntered
+        redcor = new ImageIcon(getClass().getResource("img//min1.png"));
+        btn_min.setIcon(redcor);         // TODO add your handling code here:
+    }//GEN-LAST:event_btn_minMouseEntered
+
+    private void btn_minMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_minMouseExited
+        redcor = new ImageIcon(getClass().getResource("img//min.png"));
+        btn_min.setIcon(redcor);
+    }//GEN-LAST:event_btn_minMouseExited
+
+    private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+    int x = evt.getXOnScreen();
+    int y = evt.getYOnScreen();
+    
+    this.setLocation(x-xint, y-yint);
+    }//GEN-LAST:event_jPanel1MouseDragged
+
+    private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+        xint = evt.getX();
+        yint = evt.getY();
+    }//GEN-LAST:event_jPanel1MousePressed
 
     /**
      * @param args the command line arguments
@@ -342,8 +398,9 @@ public class main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Create_flight;
-    private javax.swing.JButton Update_flight;
     private javax.swing.JButton View_Flights;
+    private javax.swing.JLabel btn_close;
+    private javax.swing.JLabel btn_min;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -353,9 +410,7 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JLabel user_name;

@@ -9,8 +9,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,6 +20,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Daniyal
  */
 public class View extends javax.swing.JFrame {
+    int xint,yint;
+    private ImageIcon redcor;
 
     /**
      * Creates new form View
@@ -40,6 +44,8 @@ public class View extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        btn_min = new javax.swing.JLabel();
+        btn_close = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -55,8 +61,20 @@ public class View extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(84, 124, 188));
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel1MouseEntered(evt);
+            }
+        });
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel1MousePressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Montserrat Medium", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -77,6 +95,36 @@ public class View extends javax.swing.JFrame {
             }
         });
 
+        btn_min.setFont(new java.awt.Font("Montserrat ExtraBold", 0, 24)); // NOI18N
+        btn_min.setForeground(new java.awt.Color(255, 255, 255));
+        btn_min.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airline/img/min.png"))); // NOI18N
+        btn_min.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_minMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_minMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_minMouseExited(evt);
+            }
+        });
+
+        btn_close.setFont(new java.awt.Font("Montserrat ExtraBold", 0, 24)); // NOI18N
+        btn_close.setForeground(new java.awt.Color(255, 255, 255));
+        btn_close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/airline/img/cross.png"))); // NOI18N
+        btn_close.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_closeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_closeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_closeMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -85,9 +133,14 @@ public class View extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addGap(191, 191, 191)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btn_min)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_close))
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(19, 19, 19))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,7 +151,13 @@ public class View extends javax.swing.JFrame {
                     .addComponent(jButton1))
                 .addContainerGap(29, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(btn_min, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_close))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addContainerGap())
         );
@@ -129,6 +188,7 @@ public class View extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -153,7 +213,7 @@ public class View extends javax.swing.JFrame {
             for (Object obje1 : obje) {
                 String first = obje1.toString().trim();
                 String[] dataRow = first.split(",");
-                System.out.println(dataRow);
+                System.out.println(Arrays.toString(dataRow));
                 model.addRow(dataRow);
             }
             
@@ -166,6 +226,47 @@ public class View extends javax.swing.JFrame {
         jButton2.setVisible(false);
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btn_closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_btn_closeMouseClicked
+
+    private void btn_closeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseEntered
+        redcor = new ImageIcon(getClass().getResource("img//redcross.png"));
+        btn_close.setIcon(redcor);
+    }//GEN-LAST:event_btn_closeMouseEntered
+
+    private void btn_closeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_closeMouseExited
+        redcor = new ImageIcon(getClass().getResource("img//cross.png"));
+        btn_close.setIcon(redcor);
+    }//GEN-LAST:event_btn_closeMouseExited
+
+    private void btn_minMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_minMouseClicked
+        this.setExtendedState(this.ICONIFIED);
+    }//GEN-LAST:event_btn_minMouseClicked
+
+    private void btn_minMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_minMouseEntered
+        redcor = new ImageIcon(getClass().getResource("img//min1.png"));
+        btn_min.setIcon(redcor);         // TODO add your handling code here:
+    }//GEN-LAST:event_btn_minMouseEntered
+
+    private void btn_minMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_minMouseExited
+        redcor = new ImageIcon(getClass().getResource("img//min.png"));
+        btn_min.setIcon(redcor);
+    }//GEN-LAST:event_btn_minMouseExited
+
+    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+    int x = evt.getXOnScreen();
+    int y = evt.getYOnScreen();
+    
+    this.setLocation(x-xint, y-yint);
+    }//GEN-LAST:event_jPanel1MouseEntered
+
+    private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+    xint = evt.getX();
+    yint = evt.getY();
+    
+    }//GEN-LAST:event_jPanel1MousePressed
 
     /**
      * @param args the command line arguments
@@ -203,6 +304,8 @@ public class View extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btn_close;
+    private javax.swing.JLabel btn_min;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
