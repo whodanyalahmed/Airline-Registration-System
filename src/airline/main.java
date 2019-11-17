@@ -359,7 +359,7 @@ public class main extends javax.swing.JFrame {
     int x = evt.getXOnScreen();
     int y = evt.getYOnScreen();
     
-    this.setLocation(x-xint, y-yint);
+    this.setLocation(x-xint, y-yint-21);
     }//GEN-LAST:event_jPanel1MouseDragged
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
